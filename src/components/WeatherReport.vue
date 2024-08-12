@@ -2,6 +2,8 @@
 import { onMounted, ref, watch, type Ref } from 'vue'
 import type { Geolocation } from '@/Types'
 
+import WindDirection from './WindDirection.vue'
+
 type WeatherData = {
   location: {
     localtime: Date
@@ -87,6 +89,10 @@ watch(props, () => getWeatherFromLocation())
         <p>{{ data.location.name }} {{ data.location.region }}</p>
         <p>Precipitation: {{ data.current.precip_mm }}</p>
         <p>{{ formatDate(data.location.localtime) }}</p>
+        <p>
+          Wind: {{ data.current.wind_kph }} kph
+          <WindDirection :degrees="data.current.wind_degree" />
+        </p>
       </div>
     </article>
     <div v-else>Loading...</div>
