@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import GetLocation from './GetLocation.vue'
+import GetLocation from '@/components/GetLocation.vue'
 import { vi } from 'vitest'
 
 describe('GetLocation', () => {
