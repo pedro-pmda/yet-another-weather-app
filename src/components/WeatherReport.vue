@@ -88,7 +88,7 @@ watch(props, () => getWeatherFromLocation())
         </h1>
         <p>{{ data.location.name }} {{ data.location.region }}</p>
         <p>Precipitation: {{ data.current.precip_mm }}</p>
-        <p>{{ formatDate(data.location.localtime) }}</p>
+        <p data-testid="localtime">{{ formatDate(data.location.localtime) }}</p>
         <p>
           Wind: {{ data.current.wind_kph }} kph
           <WindDirection :degrees="data.current.wind_degree" />
