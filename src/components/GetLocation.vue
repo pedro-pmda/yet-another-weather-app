@@ -7,7 +7,7 @@ import type { Geolocation } from '@/Types'
 
 const coords: Ref<Geolocation | undefined> = ref()
 
-const geolocationBlockedByUsers: Ref<boolean> = ref(false)
+const geolocationBlockedByUser: Ref<boolean> = ref(false)
 
 const getGeolocation = async (): Promise<void> => {
   navigator.geolocation.getCurrentPosition(
@@ -15,7 +15,7 @@ const getGeolocation = async (): Promise<void> => {
       coords.value = position.coords
     },
     (error: { message: string }) => {
-      ;(geolocationBlockedByUsers.value = true), console.error(error.message)
+      ;(geolocationBlockedByUser.value = true), console.error(error.message)
     }
   )
 }
@@ -26,11 +26,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="coords && !geolocationBlockedByUsers">
+  <div v-if="coords && !geolocationBlockedByUser">
     Latitude:{{ coords.latitude }} - Longitude:{{ coords.longitude }}
   </div>
 
-  <div v-if="geolocationBlockedByUsers">User denied acces</div>
+  <div v-if="geolocationBlockedByUser">User denied access</div>
 
   <WeatherReport :coords="coords" />
 </template>

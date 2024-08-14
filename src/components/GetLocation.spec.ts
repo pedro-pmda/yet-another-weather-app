@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import GetLocation from './components/GetLocation.vue'
+import GetLocation from './GetLocation.vue'
 import { vi } from 'vitest'
 
 describe('GetLocation', () => {
@@ -30,5 +30,19 @@ describe('GetLocation', () => {
       latitude: 51.5074,
       longitude: -0.1278
     })
+  })
+  it('display a message when user denied access', async (): Promise<void> => {
+    const mockGeoLocation = vi.fn((successCallback: Function, errorCallback: Function) => {
+      const error = new Error('User denied geolocaton access')
+      errorCallback(error)
+    })
+
+    global.navigator.geolocation = {
+      getCurrentPosition: mockGeoLocation
+    }
+    const wrapper = await shallowMount(GetLocation)
+
+    expect(wrapper.vm.geolocationBlockedByUser).toEqual(true)
+    expect(wrapper.html()).toContain('User denied access')
   })
 })
